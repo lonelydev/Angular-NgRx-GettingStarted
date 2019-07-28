@@ -1,3 +1,11 @@
+import { Product } from '../product';
+
+export interface ProductState {
+  showProductCode: boolean;
+  currentProduct: Product;
+  products: Product[];
+}
+
 /**
  * Reducers generally takes two parameters
  * @param state The state from the store
