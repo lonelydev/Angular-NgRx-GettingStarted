@@ -5,18 +5,25 @@ export interface State extends fromRoot.State {
   products: ProductState;
 }
 
+
 export interface ProductState {
   showProductCode: boolean;
   currentProduct: Product;
   products: Product[];
 }
 
+const initialState: ProductState = {
+  showProductCode: true,
+  currentProduct: null,
+  products: []
+};
+
 /**
  * Reducers generally takes two parameters
  * @param state The state from the store
  * @param action
  */
-export function reducer(state: ProductState, action): ProductState {
+export function reducer(state = initialState, action): ProductState {
   console.log('existing state: ' + JSON.stringify(state));
   console.log('payload: ' + JSON.stringify(action.payload));
   switch (action.type) {
