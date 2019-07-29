@@ -1,6 +1,7 @@
 import { Product } from '../product';
 import * as fromRoot from '../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ProductActionTypes, ProductActions } from './product.actions';
 
 export interface State extends fromRoot.State {
   products: ProductState;
@@ -44,15 +45,46 @@ export const getProducts = createSelector(
  * @param state The state from the store
  * @param action
  */
-export function reducer(state = initialState, action): ProductState {
+export function reducer(
+  state = initialState,
+  action: ProductActions
+): ProductState {
   console.log('existing state: ' + JSON.stringify(state));
-  console.log('payload: ' + JSON.stringify(action.payload));
   switch (action.type) {
-    case 'TOGGLE_PRODUCT_CODE':
+    case ProductActionTypes.ToggleProductCode:
+      console.log('payload: ' + JSON.stringify(action.payload));
       return {
         ...state, // copy over existing state
         showProductCode: action.payload // replace value of this one
       };
+
+    case ProductActionTypes.SetCurrentProduct:
+      return {
+        ...state,
+        /**
+         * new current product should also be similarly copied like the state.
+         */
+        currentProduct: { ...action.payload }
+      };
+
+    case ProductActionTypes.ClearCurrentProduct:
+      return {
+        ...state,
+        currentProduct: null
+      };
+
+    case ProductActionTypes.InitializeCurrentProduct:
+      return {
+        ...state,
+        currentProduct: {
+          id: 0,
+          productName: '',
+          productCode: 'New',
+          description: '',
+          starRating: 0
+        }
+      };
+
     default:
       return state; // return original unmodified state
   }
