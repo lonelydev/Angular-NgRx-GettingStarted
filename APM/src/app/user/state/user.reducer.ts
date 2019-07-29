@@ -28,11 +28,16 @@ export const getCurrentUser = createSelector(
   state => state.currentUser
 );
 
+const initialState: UserState = {
+  maskUserName: true,
+  currentUser: null
+};
+
 /***
  * Let us strongly type everything
  *
  */
-export function reducer(state: UserState, action) {
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case 'TOGGLE_MASK_USER_NAME':
       return {
