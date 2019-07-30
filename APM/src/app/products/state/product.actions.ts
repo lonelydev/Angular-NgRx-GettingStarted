@@ -5,7 +5,10 @@ export enum ProductActionTypes {
   ToggleProductCode = '[Product] Toggle Product Code',
   SetCurrentProduct = '[Product] Set Current Product',
   ClearCurrentProduct = '[Product] Clear Current Product',
-  InitializeCurrentProduct = '[Product] Initialize Current Product'
+  InitializeCurrentProduct = '[Product] Initialize Current Product',
+  Load = '[Product] Load',
+  LoadSuccess = '[Product] LoadSuccess',
+  LoadFail = '[Product] LoadFail'
 }
 
 export class ToggleProductCode implements Action {
@@ -31,6 +34,25 @@ export class InitializeCurrentProduct implements Action {
   readonly type = ProductActionTypes.InitializeCurrentProduct;
 }
 
+export class Load implements Action {
+  readonly type = ProductActionTypes.Load;
+}
+
+export class LoadSuccess implements Action {
+  readonly type = ProductActionTypes.LoadSuccess;
+
+  constructor(public payload: Product[]) {}
+}
+
+export class LoadFail implements Action {
+  readonly type = ProductActionTypes.LoadFail;
+  /**
+   *
+   * @param payload string payload to represent error message
+   */
+  constructor(public payload: string) {}
+}
+
 /** Union all the types
  * using the bitwise OR operator
  */
@@ -38,4 +60,7 @@ export type ProductActions =
   | ToggleProductCode
   | SetCurrentProduct
   | ClearCurrentProduct
-  | InitializeCurrentProduct;
+  | InitializeCurrentProduct
+  | Load
+  | LoadSuccess
+  | LoadFail;
