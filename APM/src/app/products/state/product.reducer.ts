@@ -62,7 +62,9 @@ export function reducer(
       return {
         ...state,
         /**
-         * new current product should also be similarly copied like the state.
+         * We pass a reference to the current product to the store. This means, changing the current product
+         * would automatically change the reference values. But as we should maintain immutability of the state,
+         * we create a copy of it using the ... operator.
          */
         currentProduct: { ...action.payload }
       };
