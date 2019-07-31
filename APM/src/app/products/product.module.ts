@@ -8,6 +8,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/product.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './state/product.effects';
 
 const productRoutes: Routes = [{ path: '', component: ProductShellComponent }];
 
@@ -17,7 +19,8 @@ const productRoutes: Routes = [{ path: '', component: ProductShellComponent }];
     RouterModule.forChild(productRoutes),
     // first argument is the name of the feature slice,
     // second argument is the name of the reducer
-    StoreModule.forFeature('products', reducer)
+    StoreModule.forFeature('products', reducer),
+    EffectsModule.forFeature([ProductEffects])
   ],
   declarations: [
     ProductShellComponent,
