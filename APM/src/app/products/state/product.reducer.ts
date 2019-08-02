@@ -2,6 +2,7 @@ import { Product } from '../product';
 import * as fromRoot from '../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ProductActionTypes, ProductActions } from './product.actions';
+import { ProductListComponent } from '../product-list/product-list.component';
 
 export interface State extends fromRoot.State {
   products: ProductState;
@@ -125,8 +126,9 @@ export function reducer(
     case ProductActionTypes.UpdateProductSuccess:
       // create a new array of products with the edited product in place
       // of the existing one.
-      const updatedProducts = state.products.map(
-        item => action.payload.id === item.id ? action.payload : item);
+      const updatedProducts = state.products.map(item =>
+        action.payload.id === item.id ? action.payload : item
+      );
       return {
         ...state,
         products: updatedProducts,
@@ -138,6 +140,22 @@ export function reducer(
       return {
         ...state,
         error: action.payload // payload is the error message here
+      };
+
+    case ProductActionTypes.AddProductSuccess:
+      const newListOfProducts = state.products.map(item => item);
+      newListOfProducts.push(action.payload);
+      return {
+        ...state,
+        products: newListOfProducts,
+        currentProductId: action.payload.id,
+        error: ''
+      };
+
+    case ProductActionTypes.AddProductFail:
+      return {
+        ...state,
+        error: action.payload
       };
 
     default:
