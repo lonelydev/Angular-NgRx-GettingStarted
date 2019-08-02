@@ -122,6 +122,24 @@ export function reducer(
         error: action.payload
       };
 
+    case ProductActionTypes.UpdateProductSuccess:
+      // create a new array of products with the edited product in place
+      // of the existing one.
+      const updatedProducts = state.products.map(
+        item => action.payload.id === item.id ? action.payload : item);
+      return {
+        ...state,
+        products: updatedProducts,
+        currentProductId: action.payload.id,
+        error: ''
+      };
+
+    case ProductActionTypes.UpdateProductFail:
+      return {
+        ...state,
+        error: action.payload // payload is the error message here
+      };
+
     default:
       return state; // return original unmodified state
   }
