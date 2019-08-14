@@ -152,10 +152,19 @@ export function reducer(
         error: ''
       };
 
+    case ProductActionTypes.DeleteProductFail:
     case ProductActionTypes.AddProductFail:
       return {
         ...state,
         error: action.payload
+      };
+
+    case ProductActionTypes.DeleteProductSuccess:
+      return {
+        ...state,
+        products: state.products.filter(item => item.id !== action.payload),
+        currentProductId: null,
+        error: ''
       };
 
     default:
