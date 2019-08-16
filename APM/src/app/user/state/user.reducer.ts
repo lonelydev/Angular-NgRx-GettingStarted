@@ -5,7 +5,6 @@ import { User } from '../user';
  * that the app imports usermodule when building itself.
  */
 import * as fromRoot from '../../state/app.state';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserActionTypes, UserActions } from './user.actions';
 
 export interface State extends fromRoot.State {
@@ -16,18 +15,6 @@ export interface UserState {
   maskUserName: boolean;
   currentUser: User;
 }
-
-const getUserFeatureState = createFeatureSelector<UserState>('users');
-
-export const getMaskUserName = createSelector(
-  getUserFeatureState,
-  state => state.maskUserName
-);
-
-export const getCurrentUser = createSelector(
-  getUserFeatureState,
-  state => state.currentUser
-);
 
 const initialState: UserState = {
   maskUserName: true,
