@@ -5,6 +5,7 @@
       (initialiseNewProduct)="newProduct()" (selected)="productSelected($event)"></pm-product-list>
   </div>
   <div class='col-md-8'>
-    <pm-product-edit></pm-product-edit>
+    <pm-product-edit [selectedProduct]="selectedProduct$ | async" (productDeleted)="deleteProduct($event)" (productCleared)="clearProduct()"
+      (productUpdated)="saveProduct($event)"></pm-product-edit>
   </div>
 </div>
